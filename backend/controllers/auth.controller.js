@@ -92,5 +92,8 @@ export const login = async (req, res) => {
     res.send('login route')
 }
 export const logout = async (req, res) => {
-    res.send('logout route')
+    res.clearCookie('token') 
+    res.status(200).json({
+        success: true, message: 'logged out successfully'
+    })
 }
