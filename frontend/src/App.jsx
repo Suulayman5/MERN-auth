@@ -2,6 +2,7 @@ import FloatingShape from "./components/FloatingShape"
 import { Routes, Route } from 'react-router-dom'
 import SignupPage from "./pages/SignupPage"
 import LoginPage from "./pages/LoginPage"
+import VerifyEmail from "./pages/VerifyEmail"
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
       <Route path="/" element={'Home'}/>
       <Route path="/signup" element={<SignupPage/>}/>
       <Route path="/login" element={<LoginPage/>}/>
+      <Route path="/verify-email" element={<VerifyEmail/>}/>
     </Routes>
     </div>
   )
