@@ -2,11 +2,15 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Loader } from 'lucide-react'
+import { useAuthStore } from '../store/authStore'
+import toast from 'react-hot-toast'
 
 const VerifyEmail = () => {
     const [code, setCode] = useState(["","","","","",""])
     const inputRefs = useRef([])
     const navigate = useNavigate()
+
+   const{error, isLoading, verifyEmail} = useAuthStore()
 
     const handleChange = (index, value) => {
         const newCode = [...code];
@@ -42,20 +46,27 @@ const VerifyEmail = () => {
         }
     }
 
-    const isLoading = false 
 
-    const handleSubmit = (e) => {
-        if (e) e.preventDefault();  // Prevent form submission if there's an event
+    const handleSubmit = async (e) => {
+        e.preventDefault();  // Prevent form submission if there's an event
       
         const verificationCode = code.join('');
-        console.log(`Verification code submitted: ${verificationCode}`);
+        try {
+          await verifyEmail(verificationCode); // Call your verification function
+          navigate('/');  // Redirect after success
+          toast.success('Email verified successfully');  // Show success message
+        } catch (error) {
+          console.error('Verification failed:', error);  // Log any errors
+          toast.error('Verification failed, please try again.'); // Show error message
+        }  
       };
       
       useEffect(() => {
+        // Check if all digits are entered before submitting
         if (code.every(digit => digit !== '')) {
-          handleSubmit();  // No need for a synthetic submit event
+          handleSubmit();  // Call handleSubmit when code is complete
         }
-      }, [code]);
+      }, [code]);  // Trigger when `code` changes
       
     
   return (
@@ -79,6 +90,7 @@ const VerifyEmail = () => {
                          />
                     ))}
                 </div>
+                {error && <p className='text-red-500 font-semibold mt-2'>{error}</p>}
                 <motion.button className='mt-5 py-3 w-full px-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-lg shadow-lg hover:from-green-600
                     hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
                     focus:ring-offset-gray-900 transition duration-200'

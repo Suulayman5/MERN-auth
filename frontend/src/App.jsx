@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import SignupPage from "./pages/SignupPage"
 import LoginPage from "./pages/LoginPage"
 import VerifyEmail from "./pages/VerifyEmail"
+import {Toaster} from 'react-hot-toast'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
       <Route path="/login" element={<LoginPage/>}/>
       <Route path="/verify-email" element={<VerifyEmail/>}/>
     </Routes>
+    <Toaster/>
     </div>
   )
 }
