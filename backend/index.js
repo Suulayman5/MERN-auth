@@ -6,15 +6,15 @@ import path from "path";
 
 import { connectDB } from "./connectDB.js";
  
-import authRoutes from "./routes/auth.routes.js"; 
+import authRoutes from "./routes/auth.routes.js";  
 
-dotenv.config();
+dotenv.config(); 
 
-const app = express();
-const PORT = process.env.PORT || 5000;
-const __dirname = path.resolve();
-
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+const app = express(); 
+const PORT = process.env.PORT || 3000; 
+const __dirname = path.resolve(); 
+ 
+app.use(cors({ origin: "*", credentials: true }));
 
 app.use(express.json()); // allows us to parse incoming requests:req.body
 app.use(cookieParser()); // allows us to parse incoming cookies
@@ -31,5 +31,5 @@ if (process.env.NODE_ENV === "production") {
 
 app.listen(PORT, () => {
 	connectDB();
-	console.log("Server is running on port: ", PORT);
+	console.log("Server is running on port=====>>>>>>> ", PORT);
 });
