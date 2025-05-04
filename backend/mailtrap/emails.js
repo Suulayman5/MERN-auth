@@ -34,7 +34,7 @@ export const sendWelcomeEmail = async (email, name) => {
 			to: recipient,
 			template_uuid: "4c5d39bc-be65-4862-b4b9-ddb9a40b66c9",
 			template_variables: {
-				company_info_name: "MOVIEX",
+				company_info_name: "Foodie",
 				name: name,
 			},
 		});
