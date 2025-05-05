@@ -8,6 +8,7 @@ import { connectDB } from "./connectDB.js";
  
 import authRoutes from "./routes/auth.routes.js";  
 import itemRoutes from "./routes/item.routes.js";  
+import categoryRoutes from "./routes/category.routes.js";  
 
 dotenv.config(); 
 
@@ -15,13 +16,14 @@ const app = express();
 const PORT = process.env.PORT || 3000; 
 const __dirname = path.resolve(); 
  
-app.use(cors({ origin: "*", credentials: true }));
+app.use(cors({ origin: "exp://192.168.173.49:8081", credentials: true }));
 
 app.use(express.json()); // allows us to parse incoming requests:req.body
 app.use(cookieParser()); // allows us to parse incoming cookies
 
 app.use("/api/auth", authRoutes);
 app.use("/api/item", itemRoutes);
+app.use("/api/categories", categoryRoutes);
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "/frontend/dist")));

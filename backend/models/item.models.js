@@ -27,6 +27,10 @@ const itemSchema = new mongoose.Schema({
     type: Date,
     default: Date.now, 
   },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Category',
+    },
 });
 
-export const Item = mongoose.models.Item || mongoose.model("Item", itemSchema);
+export const Item = mongoose.model("Item", itemSchema);
