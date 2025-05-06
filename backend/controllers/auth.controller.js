@@ -2,7 +2,7 @@ import bcryptjs from "bcryptjs";
 import crypto from 'crypto'
 import { User } from "../models/user.models.js";
 import { generateTokenAndSetCookies } from "../utils/generateTokenAndSetCookies.js";
-import { sendPasswordResetEmail, sendVerificationEmail, sendWelcomeEmail, sendResetSuccessEmail } from "../mailtrap/emails.js";
+// import { sendPasswordResetEmail, sendVerificationEmail, sendWelcomeEmail, sendResetSuccessEmail } from "../mailtrap/emails.js";
 
 export const signup = async (req, res) => {
     const {email, password, name} = req.body
@@ -70,7 +70,7 @@ export const verifyEmail = async (req, res) => {
         await user.save();
 
         // Send welcome email
-        await sendWelcomeEmail(user.email, user.name);
+        // await sendWelcomeEmail(user.email, user.name);
         
 
         // Respond with success and return user data without the password
@@ -149,7 +149,7 @@ export const forgotPassword = async (req, res) => {
         const resetPasswordExpireAt = resetTokenExpireAt
 
         await user.save()
-        await sendPasswordResetEmail(user.email, `${process.env.CLIENT_URL}/reset-password/${resetToken}`)
+        // await sendPasswordResetEmail(user.email, `${process.env.CLIENT_URL}/reset-password/${resetToken}`)
 
         res.status(200).json({success: true, message: 'password reset link sent to your email'})
 
@@ -180,7 +180,7 @@ export const resetPassword = async (req, res) => {
 		user.resetPasswordExpiresAt = undefined;
 		await user.save();
 
-		await sendResetSuccessEmail(user.email);
+		// await sendResetSuccessEmail(user.email);
 
 		res.status(200).json({ success: true, message: "Password reset successful" });
 	} catch (error) {
