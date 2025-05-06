@@ -1,13 +1,13 @@
 import { Category } from "../models/category.models.js";
 
 export const addCategory = async (req, res) => {
-    const { name } = req.body
+    const { name, minPrice, imageUrl } = req.body
 
    try {
-     if (!name) {
+     if (!name || !minPrice) {
         throw new Error("All fields are required");
      }
-           const newCategory = new Category({ name });
+           const newCategory = new Category({ name, minPrice, imageUrl });
            await newCategory.save()
 
            res.status(201).json({

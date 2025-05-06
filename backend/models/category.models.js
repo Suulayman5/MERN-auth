@@ -6,6 +6,14 @@ const categorySchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  minPrice: {
+    type: String,
+    required: true
+  },
+  imageUrl: {
+    type: String,
+    required: true,
+  },
   items: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Item",
