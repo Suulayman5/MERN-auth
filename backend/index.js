@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import cors from "cors";
+// import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
 
@@ -16,7 +16,7 @@ const app = express();
 const PORT = process.env.PORT || 3000; 
 const __dirname = path.resolve(); 
  
-  app.use(cors({ credentials: true }));
+//   app.use(cors({ credentials: true }));
 
   
 app.use(express.json()); // allows us to parse incoming requests:req.body
