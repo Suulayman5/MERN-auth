@@ -12,6 +12,7 @@ const categorySchema = new mongoose.Schema({
   },
   imageUrl: {
     type: String,
+    publicId: String,
     required: true,
   },
   items: [{

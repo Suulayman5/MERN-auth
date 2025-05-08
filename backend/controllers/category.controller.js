@@ -1,4 +1,5 @@
 import { Category } from "../models/category.models.js";
+import { uploadToCloudinary } from "../utils/cloudinary.js";
 
 export const addCategory = async (req, res) => {
     const { name, minPrice, imageUrl } = req.body
@@ -7,8 +8,13 @@ export const addCategory = async (req, res) => {
      if (!name || !minPrice) {
         throw new Error("All fields are required");
      }
-           const newCategory = new Category({ name, minPrice, imageUrl });
-           await newCategory.save()
+     let imageData = {}
+     if (imageUrl){
+      const results = await uploadToCloudinary(imageUrl, "my-profile")
+      imageData = results
+     }
+     const newCategory = new Category({ name, minPrice, imageUrl: imageData.url });
+     await newCategory.save()
 
            res.status(201).json({
             success: true,
@@ -20,7 +26,30 @@ export const addCategory = async (req, res) => {
             success: false,
             message: error.message,
           });
-        }
+    }
+
+
+// const createUser = async (req, res) => {
+//   const {name, username, image} = req.body
+//   try{
+//       let imageData = {}
+//       if(image){
+//           const results = await uploadToCloudinary(image, "my-profile")
+//           imageData = results
+//       }
+//       const user = await User.create({
+//           name,
+//           username,
+//           image: imageData
+//       })
+
+//       res.status(200).json(user)
+//   } catch(e) {
+//       res.status(500).json({error: "A server error occurred with this request"})
+//   }
+// }
+
+// module.exports = { createUser }
 }
 export const getCategory = async (req, res) => {
     try {
