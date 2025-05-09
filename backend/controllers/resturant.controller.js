@@ -30,7 +30,7 @@ export const createResturant = async (req, res) => {
 
 export const getResturant = async (req, res) => {
     try {
-        const resturant = await Resturant.find()
+        const resturant = await Resturant.find().populate('category', 'name');
         res.status(200).json({
             success: true,
             message: 'resturants fetched successfully',
