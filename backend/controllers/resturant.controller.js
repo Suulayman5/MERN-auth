@@ -17,8 +17,7 @@ export const createResturant = async (req, res) => {
              res.status(201).json({
                 success: true,
                 message: "Resturant created",
-                item: newResturant,
-                category: newResturant,
+                data: newResturant,
               });
     } catch (error) {
         res.status(400).json({
