@@ -31,6 +31,10 @@ const itemSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
     },
+    resturant: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Resturant',
+    },
 });
 
 export const Item = mongoose.model("Item", itemSchema);

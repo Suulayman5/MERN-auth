@@ -1,12 +1,13 @@
 import { Item } from "../models/item.models.js";
 import { Category } from '../models/category.models.js';
+import { Resturant } from "../models/resturant.models.js";
 
 
 export const addItem = async (req, res) => {
-    const { imageUrl, name, details, ingredients = [], price, category } = req.body;
+    const { imageUrl, name, details, ingredients = [], price, category, resturant } = req.body;
   
     try {
-      if (!imageUrl || !name || !details || !price || !category) {
+      if (!imageUrl || !name || !details || !price || !category || !resturant) {
         throw new Error("All fields are required");
       }
   
@@ -18,6 +19,7 @@ export const addItem = async (req, res) => {
         ingredients,
         price,
         category,
+        resturant,
       });
   
       await newItem.save();
@@ -26,10 +28,13 @@ export const addItem = async (req, res) => {
       await Category.findByIdAndUpdate(category, {
         $push: { items: newItem._id },
       });
+      await Resturant.findByIdAndUpdate(resturant, {
+        $push: { items: newItem._id },
+      });
   
       res.status(201).json({
         success: true,
-        message: "Dish created and added to category",
+        message: "Dish created ",
         item: newItem,
       });
     } catch (error) {
