@@ -48,7 +48,7 @@ export const getResturantById = async (req, res) => {
     const { id } = req.params;
   
     try {
-      const resturant = await Resturant.findById(id);
+      const resturant = await Resturant.findById(id).populate('category', 'name');
   
       if (!resturant) {
         return res.status(404).json({
