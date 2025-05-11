@@ -1,6 +1,8 @@
 import { Item } from "../models/item.models.js";
 import { Category } from '../models/category.models.js';
 import { Resturant } from "../models/resturant.models.js";
+import { uploadToCloudinary } from "../utils/cloudinary.js";
+
 
 
 export const addItem = async (req, res) => {
@@ -11,9 +13,13 @@ export const addItem = async (req, res) => {
         throw new Error("All fields are required");
       }
   
-      // 1. Create the item
+      let imageData = {}
+      if (imageUrl){
+      const results = await uploadToCloudinary(imageUrl, "my-profile")
+      imageData = results
+      }      
       const newItem = new Item({
-        imageUrl,
+        imageUrl: imageData.url,
         name,
         details,
         ingredients,
